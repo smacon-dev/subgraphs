@@ -1,0 +1,27 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Event
+    network: rinkeby
+    source:
+      address: "0xc5BeE3DDcD7F58380Aa0CA3D01dA63a34a9C3c09"
+      abi: Event
+      startBlock: 10028560
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AnotherLog
+        - Log
+      abis:
+        - name: Event
+          file: ./abis/Event.json
+      eventHandlers:
+        - event: AnotherLog()
+          handler: handleAnotherLog
+        - event: Log(indexed address,string)
+          handler: handleLog
+      file: ./src/mapping.ts
